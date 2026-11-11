@@ -1,0 +1,16 @@
+.diver{
+    width: 30%;
+    height: 5vh;
+    border: double rgb(251, 253, 252) 5px;
+    justify-self: center;
+    align-self: center;
+    text-align: center;
+    border-radius: 3rem;
+    margin-top: 150px;
+    margin-bottom: 350px;
+
+}
+.diver p{
+    font-size: 20px;
+ 
+}
