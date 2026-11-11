@@ -1,0 +1,196 @@
+/* ========== VARIABLES & RESET ========== */
+:root {
+  --black: #121010;
+  --dark: #1a1816;
+  --cream: #efe6da;
+  --beige: #c9b8a0;
+  --brown: #a98b6a;
+  --text-light: #f3ece2;
+  --text-muted: #b9ada0;
+  --serif: "Cormorant Garamond", Georgia, serif;
+  --sans: "Jost", Arial, sans-serif;
+  --pad: 56px;
+  --header-h: 113px; /* جدید: ارتفاع هدر (65px لوگو + 2×24px پدینگ) */
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+html { scroll-behavior: smooth; scroll-padding-top: 90px; } /* تغییر: scroll-padding برای اینکه هدر ثابت روی عنوان سکشن‌ها نیفتد */
+body { background: var(--black); color: var(--text-light); font-family: var(--sans); font-weight: 300; line-height: 1.6; }
+img { display: block; width: 100%; height: 100%; object-fit: cover; }
+a { color: inherit; text-decoration: none; }
+button { font-family: inherit; cursor: pointer; }
+:focus-visible { outline: 1px solid var(--beige); outline-offset: 3px; }
+.hidden { display: none !important; } /* تغییر: !important تا همیشه برنده باشد */
+
+h1, h2 { font-family: var(--serif); font-weight: 400; line-height: 1.05; text-transform: uppercase; }
+h1 { font-size: clamp(2.6rem, 5vw, 4.4rem); }
+h2 { font-size: clamp(2rem, 3.4vw, 3rem); }
+
+.eyebrow { font-size: 0.62rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); margin-bottom: 18px; }
+.eyebrow.dark { color: #6f6458; }
+
+.link { display: inline-block; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; padding-bottom: 4px; border-bottom: 1px solid currentColor; }
+.link::after { content: "  \2192"; }
+.link.dark { color: var(--black); }
+
+.btn { display: inline-block; font-size: 0.65rem; letter-spacing: 0.2em; text-transform: uppercase; padding: 14px 28px; transition: background 0.3s, color 0.3s; }
+.btn-outline { border: 1px solid var(--text-light); color: var(--text-light); }
+.btn-outline:hover { background: var(--text-light); color: var(--black); }
+.btn-dark { background: var(--black); color: var(--text-light); border: 0; }
+.btn-dark:hover { background: #000; }
+
+/* ========== HEADER ========== */
+/* تغییر: position از absolute به fixed تا هدر هنگام اسکرول بالا بماند */
+.header { position: fixed; top: 0; left: 0; right: 0; z-index: 100; display: flex; align-items: center; justify-content: space-between; padding: 24px var(--pad); transition: background 0.3s ease, padding 0.3s ease; }
+/* جدید: ظاهر هدر بعد از اسکرول (کلاس scrolled را جاوا اسکریپت اضافه می‌کند) */
+.header.scrolled { padding: 12px var(--pad); background: rgba(18, 16, 16, 0.92); backdrop-filter: blur(8px); border-bottom: 1px solid #2c2824; }
+.logo { font-family: var(--serif); font-size: 1.5rem; letter-spacing: 0.28em; }
+.nav, .header-actions { display: flex; gap: 32px; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; }
+.nav a:hover, .header-actions a:hover { color: var(--beige); }
+.header-actions { align-items: center; }
+.header-actions-svg { border: solid 2px var(--text-light); border-radius: 50%; }
+
+/* جدید: دکمه‌ی همبرگری (در دسکتاپ مخفی است) */
+.menu-toggle { display: none; background: none; border: 0; color: var(--text-light); font-size: 1.6rem; line-height: 1; padding: 4px 8px; }
+
+/* ========== SEARCH BAR ========== */
+/* تغییر: top از 80px به متغیر ارتفاع هدر */
+.search-bar { position: fixed; top: var(--header-h); left: 0; width: 100%; display: flex; align-items: center; gap: 16px; padding: 20px var(--pad); background: #1a1a1a; color: var(--text-light); transform: translateY(-150%); opacity: 0; pointer-events: none; transition: transform 0.4s ease, opacity 0.4s ease, top 0.3s ease; z-index: 90; }
+.search-bar.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+/* جدید: وقتی هدر کوچک شد، نوار جستجو هم بالاتر بیاید (ارتفاع هدر = 65 + 2×12 = 89px) */
+.header.scrolled + .search-bar { top: 89px; }
+.search-bar input { flex: 1; background: transparent; border: none; border-bottom: 1px solid var(--text-light); color: var(--text-light); font-size: 18px; padding: 8px 0; outline: none; }
+.search-bar button { background: none; border: none; color: var(--text-light); font-size: 28px; cursor: pointer; }
+
+/* ========== HERO ========== */
+.hero {
+  position: relative; min-height: 100vh; display: flex; align-items: center; padding: 0 var(--pad);
+  background:
+    linear-gradient(90deg, rgba(18,16,16,0.92) 0%, rgba(18,16,16,0.55) 45%, rgba(18,16,16,0) 75%),
+    url(../pic/hiro-banner.png) center / cover no-repeat; /* عکس شماره 1 */
+}
+.hero-content { max-width: 520px; }
+.hero-content h1 { margin-bottom: 24px; }
+.hero-text { max-width: 320px; font-size: 0.85rem; color: var(--text-muted); margin-bottom: 32px; }
+.hero-side { position: absolute; right: var(--pad); top: 50%; transform: translateY(-50%); font-size: 0.55rem; letter-spacing: 0.22em; text-transform: uppercase; color: var(--text-muted); border-left: 1px solid var(--text-muted); padding-left: 16px; }
+
+/* ========== THE EVENING EDIT ========== */
+.edit { display: grid; grid-template-columns: 300px 1fr; gap: 40px; align-items: center; background: var(--cream); color: var(--black); padding: 48px var(--pad); }
+.edit-text h2 { font-size: 2.4rem; margin-bottom: 20px; }
+.edit-text p { font-size: 0.8rem; color: #5a5047; margin-bottom: 24px; max-width: 240px; }
+.edit-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.edit-card { display: block; }
+.edit-card img { aspect-ratio: 3 / 4; height: auto; border-radius: 0.5rem; }
+.edit-card span { display: block; text-align: center; font-size: 0.55rem; letter-spacing: 0.2em; text-transform: uppercase; margin-top: 14px; }
+
+/* ========== BESTSELLERS ========== */
+.best { background: var(--dark); padding: 56px var(--pad) 64px; }
+.best-head { display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 32px; }
+.best-head h2 { font-size: 2.6rem; }
+.best-head .eyebrow { margin-bottom: 6px; }
+.best-side { display: flex; align-items: center; gap: 28px; font-size: 0.72rem; color: var(--text-muted); }
+.best-side p { max-width: 210px; }
+.arrows { display: flex; gap: 10px; }
+.arrow { width: 32px; height: 32px; border-radius: 50%; border: 1px solid #5a5148; background: transparent; color: var(--text-light); transition: border-color 0.3s; }
+.arrow-active { border-color: var(--text-light); }
+
+/* تغییر: از grid به flex با اسکرول افقی، تا اسلایدر کار کند */
+.best-grid { display: flex; gap: 8px; overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; }
+.best-grid::-webkit-scrollbar { display: none; }
+/* هر کارت یک‌پنجم عرض (۵ کارت، ۴ فاصله‌ی ۸ پیکسلی) */
+.product { flex: 0 0 calc((100% - 32px) / 5); scroll-snap-align: start; }
+.product img { aspect-ratio: 2.5 / 4; height: auto; }
+.product-info { display: flex; justify-content: space-between; align-items: center; padding-top: 14px; }
+.product-info h3 { font-family: var(--sans); font-weight: 400; font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; }
+.product-info p { font-size: 0.7rem; color: var(--text-muted); }
+.product-info button { background: none; border: 0; color: var(--text-light); font-size: 0.9rem; }
+
+/* جدید: پیام نتیجه‌ای پیدا نشد */
+.no-results { text-align: center; padding: 40px 0 8px; font-size: 0.8rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+
+/* ========== PHILOSOPHY ========== */
+.philosophy { display: grid; grid-template-columns: 40% 60%; min-height: 380px; }
+.philosophy-img { height: 100%; }
+.philosophy-box { display: grid; grid-template-columns: 1fr 1fr; background: var(--cream); color: var(--black); }
+.philosophy-text { padding: 56px 40px 56px 56px; align-self: center; }
+.philosophy-text h2 { font-size: 2.4rem; margin-bottom: 20px; }
+.philosophy-text p:not(.eyebrow) { font-size: 0.78rem; color: #5a5047; margin-bottom: 24px; }
+.philosophy-arch img { height: 100%; }
+
+/* ========== CAMPAIGN ========== */
+.campaign { display: grid; grid-template-columns: 300px 1fr; gap: 40px; align-items: center; background: var(--black); padding: 48px var(--pad); border-bottom: solid 0.5px var(--beige); }
+.campaign-text h2 { font-size: 2.2rem; margin-bottom: 20px; }
+.campaign-text p:not(.eyebrow) { font-size: 0.78rem; color: var(--text-muted); margin-bottom: 24px; max-width: 250px; }
+.campaign-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
+.campaign-grid img { aspect-ratio: 3 / 4; height: auto; border-radius: 0.5rem; }
+
+/* ========== NEWSLETTER ========== */
+.newsletter {
+  text-align: center; padding: 72px var(--pad);
+  background: linear-gradient(rgba(18,16,16,0.35), rgba(18,16,16,0.35)), url("images/newsletter-bg.jpg") center / cover no-repeat; /* عکس شماره 16 */
+}
+.newsletter h2 { font-size: 2rem; text-transform: none; margin-bottom: 8px; }
+.newsletter p:not(.eyebrow) { font-size: 0.8rem; margin-bottom: 24px; }
+.newsletter-form { display: inline-flex; border: 1px solid rgba(243,236,226,0.4); }
+.newsletter-form input { width: 300px; padding: 14px 18px; background: rgba(18,16,16,0.4); border: 0; color: var(--text-light); font-family: var(--sans); font-size: 0.75rem; }
+.newsletter-form input::placeholder { color: var(--text-muted); }
+
+/* جدید: پیام زیر فرم خبرنامه (موفقیت / خطا) */
+.newsletter p.newsletter-message { margin: 16px 0 0; min-height: 1.6em; font-size: 0.75rem; letter-spacing: 0.08em; }
+.newsletter p.newsletter-message.success { color: var(--beige); }
+.newsletter p.newsletter-message.error { color: #e0907f; }
+
+/* ========== FOOTER ========== */
+.footer { background: var(--black); padding: 40px var(--pad) 20px; }
+.footer-top { display: flex; justify-content: space-between; align-items: center; padding-bottom: 28px; border-bottom: 1px solid #2c2824; }
+.footer-tag { font-size: 0.55rem; letter-spacing: 0.18em; text-transform: uppercase; color: var(--text-muted); margin-top: 6px; }
+.footer-nav { display: flex; gap: 36px; font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; }
+.socials { display: flex; gap: 18px; font-size: 0.6rem; }
+.footer-bottom { display: flex; justify-content: space-between; padding-top: 18px; font-size: 0.55rem; letter-spacing: 0.14em; text-transform: uppercase; color: var(--text-muted); }
+.footer-bottom nav { display: flex; gap: 28px; }
+
+/* ========== SCROLL REVEAL (جدید) ========== */
+/* کلاس reveal را جاوا اسکریپت اضافه می‌کند و با رسیدن به دید کاربر، visible می‌گیرد */
+.reveal { opacity: 0; transform: translateY(30px); transition: opacity 0.8s ease, transform 0.8s ease; }
+.reveal.visible { opacity: 1; transform: translateY(0); }
+
+/* کسانی که انیمیشن را در سیستم‌شان خاموش کرده‌اند */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ========== RESPONSIVE ========== */
+@media (max-width: 1000px) {
+  :root { --pad: 28px; }
+  .edit, .campaign { grid-template-columns: 1fr; }
+  .edit-grid { grid-template-columns: repeat(2, 1fr); }
+  /* تغییر: به‌جای grid دو ستونه، هر کارت نصف عرض اسلایدر */
+  .product { flex-basis: calc((100% - 8px) / 2); }
+  .best-head, .best-side { flex-direction: column; align-items: flex-start; gap: 16px; }
+  .philosophy, .philosophy-box { grid-template-columns: 1fr; }
+  .philosophy-img { height: 320px; }
+  .campaign-grid { grid-template-columns: 1fr; }
+  .hero-side { display: none; }
+  .footer-top, .footer-bottom { flex-direction: column; gap: 20px; align-items: flex-start; }
+  .footer-nav { flex-wrap: wrap; gap: 18px; }
+
+  /* تغییر: به‌جای display:none، منو به‌صورت کشویی زیر هدر باز می‌شود */
+  .menu-toggle { display: block; order: 3; }
+  .header-actions { order: 2; margin-left: auto; margin-right: 12px; gap: 20px; }
+  .nav { position: absolute; top: 100%; left: 0; right: 0; flex-direction: column; gap: 0; background: rgba(18, 16, 16, 0.97); border-top: 1px solid #2c2824; transform: translateY(-10px); opacity: 0; pointer-events: none; transition: transform 0.3s ease, opacity 0.3s ease; }
+  .nav a { padding: 18px var(--pad); border-bottom: 1px solid #2c2824; }
+  .nav.open { transform: translateY(0); opacity: 1; pointer-events: auto; }
+}
+
+@media (max-width: 600px) {
+  :root { --header-h: 88px; }
+  .logo { font-size: 1.1rem; letter-spacing: 0.2em; }
+  .header { padding: 16px var(--pad); }
+  .header.scrolled { padding: 10px var(--pad); }
+  .header-actions { gap: 12px; margin-right: 6px; }
+  .header-actions-svg { width: 40px; height: 40px; }
+  .header.scrolled + .search-bar { top: 70px; }
+  .newsletter-form { display: flex; flex-direction: column; width: 100%; }
+  .newsletter-form input { width: 100%; }
+}

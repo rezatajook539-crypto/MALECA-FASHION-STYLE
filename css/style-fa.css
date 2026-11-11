@@ -1,0 +1,59 @@
+/* این فایل بعد از style.css لود می‌شود و فقط تفاوت‌های نسخه‌ی فارسی (راست‌چین) را اعمال می‌کند */
+
+:root {
+  --sans: "Vazirmatn", Tahoma, sans-serif;
+  --serif: "Vazirmatn", Tahoma, sans-serif;
+}
+
+@font-face {
+  font-family: 'bang';
+  src: url(../font/IranSansX\ Pro.rar);
+}
+/* فاصله‌ی بین حروف در فارسی حروف را از هم جدا می‌کند، پس صفر می‌شود */
+html[dir="rtl"] *,
+html[dir="rtl"] *::before,
+html[dir="rtl"] *::after { letter-spacing: 0; }
+
+/* لوگوی لاتین فاصله‌ی حروفش را نگه می‌دارد */
+html[dir="rtl"] .logo { letter-spacing: 0.28em; font-family:'bang'; }
+
+body { line-height: 1.9; }
+h1, h2 { font-weight: 500; line-height: 1.4; }
+
+/* اندازه‌ی فونت‌های ریز بزرگ‌تر می‌شوند چون فارسی در سایز کوچک خوانا نیست */
+.nav, .header-actions { font-size: 0.8rem; }
+.eyebrow { font-size: 0.8rem; }
+.link { font-size: 0.8rem; }
+.link::after { content: "  \2190"; }
+.btn { font-size: 0.85rem; }
+.hero-text { font-size: 1rem; max-width: 380px; }
+.hero-side { font-size: 0.75rem; }
+.edit-text p, .campaign-text p:not(.eyebrow), .philosophy-text p:not(.eyebrow) { font-size: 0.9rem; max-width: none; }
+.edit-card span { font-size: 0.8rem; }
+.best-side { font-size: 0.85rem; }
+.product-info h3 { font-size: 0.85rem; font-weight: 500; }
+.product-info p { font-size: 0.8rem; }
+.newsletter p:not(.eyebrow) { font-size: 0.95rem; }
+.newsletter-form input { font-size: 0.85rem; }
+.footer-nav, .footer-tag { font-size: 0.8rem; }
+.footer-bottom { font-size: 0.75rem; }
+.hero-content{font-family: 'bang';}
+
+/* جهت گرادیان تصویر هیرو برعکس می‌شود تا متن سمت راست روی بخش تیره بنشیند */
+.hero {
+  background:
+    linear-gradient(270deg, rgba(18,16,16,0.92) 0%, rgba(18,16,16,0.55) 45%, rgba(18,16,16,0) 75%),
+    url(../pic/hiro-banner.png) center / cover ; /* عکس شماره 1 */
+}
+
+/* نوشته‌ی کنار هیرو به سمت چپ می‌رود */
+.hero-side {
+  right: auto;
+  left: var(--pad);
+  border-left: 0;
+  padding-left: 0;
+  border-right: 1px solid var(--text-muted);
+  padding-right: 16px;
+}
+
+.philosophy-text { padding: 56px 56px 56px 40px; }
